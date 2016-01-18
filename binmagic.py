@@ -1,38 +1,42 @@
 #!/usr/bin/env python
-#
-#
-#
 
 import sys
-import binStructures
+import os
+sys.path.append(os.path.realpath(".") + "/include")
 
-class binhandler(object):
+import binutils
+import binstructures
 
-    def __init__(self, filename):
+VERSION = open("VERSION", "r").read().strip()
 
-        self.file = open(filename, "rb")
+def banner():
 
-    def readByteAtOffset(self, offset):
+	print("\t -- binmagic %s --\n" % VERSION)
+	print("\t\t@_x90__\n")
 
-        self.file.seek(offset) # This is in hex
-        byte = self.file.read(1)
-        self.file.seek(0)
-        return byte
+def usage():
 
-    def readBytes(self, offset, len):
+	banner()
 
-        self.file.seek(offset)
-        byteArray = self.file.read(len)
-        self.file.seek(0)
-        return byteArray
+	print("Usage: %s [options]\n" % sys.argv[0)
 
+	print("Options:")
+	print("\t-i [input image/binary]")
+	print("\t-a\tAnalyse the image for recognised files.")
+	print("\t-e\tAnalyse and auto extract everything. (Recommended)\n")
+	exit(1)
 
 if __name__ == "__main__":
 
-    #bh = binhandler(sys.argv[1])
-    #y = bh.readByteAtOffset(0x10)
-    #x = bh.readBytes(0, 0x5)
-    #bytecmp = lambda x,y : True if x == y else False
-    #print(bytecmp(y.hex(), 0x34))
 
-    print(binStructures.structs["SQUASHFS"][0]) 
+	if "-i" not in sys.argv:
+		usage()	
+
+	bh = binutils.binhandler(sys.argv[1])
+	bs = binstructures.binStruct()
+
+	print(bs.get_header("SQUASHFS"))
+	
+	bh.extractObject(0, 0x10, "output.binary")
+
+
