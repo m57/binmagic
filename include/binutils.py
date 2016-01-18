@@ -22,7 +22,6 @@ class binhandler(object):
         self.file.seek(0)
         return byteArray
 
-
     def extractObject(self, start, length, output):
     
         self.file.seek(start)
@@ -38,3 +37,6 @@ class binhandler(object):
 
         self.file.seek(0)
     
+
+    def getHandle(self):
+        return self.file
