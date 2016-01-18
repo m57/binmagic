@@ -11,6 +11,8 @@ import binstructures
 
 VERSION = open("VERSION", "r").read().strip()
 
+structures_identified = {}
+
 def banner():
 
 	print("\t -- binmagic %s --\n" % VERSION)
@@ -28,22 +30,32 @@ def usage():
 	print("\t-e\tAnalyse and auto extract everything. (Recommended)\n")
 	exit(1)
 
-def scan_for_struct(image_file):
 
-	bh = binutils.binhandler(image_file).getHandle()
+def report_found(key, header, read_offset):
+
+	if key == "SQUASHFS"
+
+def parse_header(
+
+def scan_for_headers(image_file):
+
+	bh = binutils.binhandler(image_file)
+	bhandle = bh.getHandle()
 	bs = binstructures.binStruct()
+	found = 0
 
 	for key,value in bs.struct_defs.iteritems():
+		#print "Doing %s" % key
+		found = 0
+		while not (found):
 
-		for inner_key,inner_value in value.iteritems():
+			read = bhandle.read(4)
 
-			while(True):
-				read = struct.unpack("<4s", bh.read(4))
-				#print read
-				if read in value["HEADER"]:
-					
-					print "found"
-					exit(1)
+			if read in value["HEADER"]:
+				report_found(key, read, bhandle.tell()-0x4)
+				found = 1
+
+		bh.handleSeek(0)
 			
 if __name__ == "__main__":
 
@@ -53,7 +65,7 @@ if __name__ == "__main__":
 	
 	image_file = sys.argv[sys.argv.index("-i")+1]
 
-	scan_for_struct(image_file)
+	scan_for_headers(image_file)
 
 	#print(bs.get_header("SQUASHFS"))
 	

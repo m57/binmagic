@@ -31,11 +31,15 @@ class binStruct(object):
 						"VERSION" : 0x1c, 
 						"SIZE" : 0x40,
 						"METHOD" : ["UNKNOWN", "ZLIB", "LZMA", "LZO", "XZ"]
+			},
+
+			"TESTTYPE"	: { 
+						"HEADER" : ['\xc8\x75\x5d\xae'],
+						"INODES" : 0x4,
+						"BLOCKSIZE" : 0x0c,
+						"VERSION" : 0x1c, 
+						"SIZE" : 0x40,
+						"METHOD" : ["UNKNOWN", "ZLIB", "LZMA", "LZO", "XZ"]
 			}
 			
 		}
-
-#	def parse_squashfs(self):
-
-	def get_header(self, index):
-		return self.struct_defs[index][0][0]
