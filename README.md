@@ -1,2 +1,5 @@
 # binmagic
-A binary image extraction tool for identifying file structures within binary blobs and firmware images, and extracting them for for further anlysis.
+
+I know its reinventing the wheel of binwalk, now that i have implemented SquashFS, all I needed to do was add new filesystems, 
+file types etc and then add multi-threading and clean up the class-less ness of the code. Just a personal learning project :)
+
