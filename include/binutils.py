@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import misc
 import os
@@ -6,9 +6,8 @@ import os
 class binhandler(object):
 
     def __init__(self, filename):
-
         self.file = open(filename, "rb")
-	self.file_size = os.path.getsize(filename)
+        self.file_size = os.path.getsize(filename)
 
     def readByteAtOffset(self, offset):
 
@@ -39,11 +38,8 @@ class binhandler(object):
 
         self.file.seek(0)
     
-    def handleSeek(self, offset):
-
-		self.file.seek(offset)
-
     def getHandle(self):
+
         return self.file
 
 

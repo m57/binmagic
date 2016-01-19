@@ -1,6 +1,6 @@
-#!/usr/bin/env python
-
-
+#!/usr/bin/env python3
+#
+#
 #
 # STRUCTURE NOTATION:
 #
@@ -13,33 +13,39 @@
 #	0x8	: CTime "<L"
 #	0x0c	: blocksize "<L"
 #	0x10	: numfrags "<L"
+#	0x14	: Method (LZMA,ZLIB etc
 #	0x1c	: version "<L"
-#	0x40 	: size "<LL" 
-#	0x70	: start of squashFS
+#	0x28 	: size "<LL" 
 #
 #
 
 class binStruct(object):
 
 	def __init__(self):
+
 		self.struct_defs = { 
 
-			"SQUASHFS"	: { 
-						"HEADER" : ['sqsh', 'hsqs'],
-						"INODES" : 0x4,
-						"BLOCKSIZE" : 0x0c,
-						"VERSION" : 0x1c, 
-						"SIZE" : 0x40,
-						"METHOD" : ["UNKNOWN", "ZLIB", "LZMA", "LZO", "XZ"]
+			"SQUASHFS2"	: { 
+						"TITLE" : "SquashFS",
+						"HEADER" : [ b'sqsh', b'hsqs' ],
+						"INODES" : [ 0x4, 0x4 ],
+						"BLOCKSIZE" : [ 0x0c, 0x4 ],
+						"VERSION_MAJ" : [ 0x1c, 0x2 ], 
+						"VERSION_MIN" : [ 0x1e, 0x2 ], 
+						"SIZE" : [ 0x28, 0x8 ],
+						"METHOD" : [ 0x14, 0x2 ],
+						"METHOD_MAPS" : ["UNKNOWN", "ZLIB", "LZMA", "LZO", "XZ"]
 			},
-
-			"TESTTYPE"	: { 
-						"HEADER" : ['\xc8\x75\x5d\xae'],
-						"INODES" : 0x4,
-						"BLOCKSIZE" : 0x0c,
-						"VERSION" : 0x1c, 
-						"SIZE" : 0x40,
-						"METHOD" : ["UNKNOWN", "ZLIB", "LZMA", "LZO", "XZ"]
+			"SQUASHFS"	: { 
+						"TITLE" : "SquashFS",
+						"HEADER" : [ b'sqsh', b'hsqs' ],
+						"INODES" : [ 0x4, 0x4 ],
+						"BLOCKSIZE" : [ 0x0c, 0x4 ],
+						"VERSION_MAJ" : [ 0x1c, 0x2 ], 
+						"VERSION_MIN" : [ 0x1e, 0x2 ], 
+						"SIZE" : [ 0x28, 0x8 ],
+						"METHOD" : [ 0x14, 0x2 ],
+						"METHOD_MAPS" : ["UNKNOWN", "ZLIB", "LZMA", "LZO", "XZ"]
 			}
-			
+
 		}
